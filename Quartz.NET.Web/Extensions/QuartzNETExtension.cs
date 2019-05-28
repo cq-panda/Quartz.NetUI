@@ -119,6 +119,10 @@ namespace Quartz.NET.Web.Extensions
         {
             try
             {
+                (bool, string) validExpression = taskOptions.Interval.IsValidExpression();
+                if (!validExpression.Item1)
+                    return new { status = false, msg = validExpression.Item2 };
+
                 (bool, object) result = taskOptions.Exists(init);
                 if (!result.Item1)
                     return result.Item2;
@@ -213,9 +217,10 @@ namespace Quartz.NET.Web.Extensions
             return schedulerFactory.TriggerAction(taskOptions.TaskName, taskOptions.GroupName, JobAction.立即执行, taskOptions);
         }
 
-        public static void ModifyTaskEntity(this TaskOptions taskOptions, ISchedulerFactory schedulerFactory, JobAction action)
+        public static object ModifyTaskEntity(this TaskOptions taskOptions, ISchedulerFactory schedulerFactory, JobAction action)
         {
             TaskOptions options = null;
+            object result = null;
             switch (action)
             {
                 case JobAction.删除:
@@ -237,7 +242,7 @@ namespace Quartz.NET.Web.Extensions
                     }
 
                     //生成任务并添加新配置
-                    taskOptions.AddJob(schedulerFactory, false).GetAwaiter().GetResult();
+                    result = taskOptions.AddJob(schedulerFactory, false).GetAwaiter().GetResult();
                     break;
                 case JobAction.暂停:
                 case JobAction.开启:
@@ -260,6 +265,7 @@ namespace Quartz.NET.Web.Extensions
             }
             //生成配置文件
             FileQuartz.WriteJobConfig(_taskList);
+            return result;
         }
 
         /// <summary>
@@ -297,7 +303,7 @@ namespace Quartz.NET.Web.Extensions
                     errorMsg = $"未找到触发器[{taskName}]";
                     return new { status = false, msg = errorMsg };
                 }
-
+                object result = null;
                 switch (action)
                 {
                     case JobAction.删除:
@@ -305,12 +311,12 @@ namespace Quartz.NET.Web.Extensions
                         await scheduler.PauseTrigger(trigger.Key);
                         await scheduler.UnscheduleJob(trigger.Key);// 移除触发器
                         await scheduler.DeleteJob(trigger.JobKey);
-                        taskOptions.ModifyTaskEntity(schedulerFactory, action);
+                        result = taskOptions.ModifyTaskEntity(schedulerFactory, action);
                         break;
                     case JobAction.暂停:
                     case JobAction.停止:
                     case JobAction.开启:
-                        taskOptions.ModifyTaskEntity(schedulerFactory, action);
+                        result = taskOptions.ModifyTaskEntity(schedulerFactory, action);
                         if (action == JobAction.暂停)
                         {
                             await scheduler.PauseTrigger(trigger.Key);
@@ -318,7 +324,7 @@ namespace Quartz.NET.Web.Extensions
                         else if (action == JobAction.开启)
                         {
                             await scheduler.ResumeTrigger(trigger.Key);
-                         //   await scheduler.RescheduleJob(trigger.Key, trigger);
+                            //   await scheduler.RescheduleJob(trigger.Key, trigger);
                         }
                         else
                         {
@@ -329,7 +335,7 @@ namespace Quartz.NET.Web.Extensions
                         await scheduler.TriggerJob(jobKey);
                         break;
                 }
-                return new { status = true, msg = $"作业{action.ToString()}成功" };
+                return result ?? new { status = true, msg = $"作业{action.ToString()}成功" };
             }
             catch (Exception ex)
             {
@@ -372,6 +378,21 @@ namespace Quartz.NET.Web.Extensions
                     });
             }
             return (true, null);
+        }
+
+        public static (bool, string) IsValidExpression(this string cronExpression)
+        {
+            try
+            {
+                CronTriggerImpl trigger = new CronTriggerImpl();
+                trigger.CronExpressionString = cronExpression;
+                DateTimeOffset? date = trigger.ComputeFirstFireTimeUtc(null);
+                return (date != null, date == null ? $"请确认表达式{cronExpression}是否正确!" : "");
+            }
+            catch (Exception e)
+            {
+                return (false, $"请确认表达式{cronExpression}是否正确!{e.Message}");
+            }
         }
     }
 
