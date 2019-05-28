@@ -1,0 +1,52 @@
+﻿
+#index-container {
+transform: translateY(-50%);
+/* background: #ae9696; */
+top: 40%;
+position: absolute;
+margin: 0 auto;
+left: 0;
+width: 350px;
+line-height: 100px;
+right: 0;
+text-align: center;
+}
+
+#index-container form > div {
+padding: 5px;
+margin-bottom: 15px;
+}
+
+body {
+}
+
+.demo-badge {
+color: #999;
+width: 320px;
+/*height: 40px;
+/*background: #eee;*/
+/* border-radius: 6px;
+display: inline-block;*/
+}
+
+.ivu-badge-count {
+top: 16px;
+right: 39px;
+}
+
+.txt {
+height: 70px;
+}
+
+.txt .big {
+letter-spacing: 5px;
+font-size: 28px;
+font-weight: bold;
+}
+
+.txt .small {
+font-size: 14px;
+margin-left: 13px;
+}
+
+

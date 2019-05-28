@@ -1,0 +1,54 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    Layout = null;
+}
+<meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<link href="~/iView/iview.css" rel="stylesheet" />
+<link rel="stylesheet" href="//unpkg.com/iview/dist/styles/iview.css">
+<link href="~/css/login_index.css" rel="stylesheet" />
+<title>定时任务UI</title>
+<script src="~/vue/vue.js"></script>
+<script src="~/iView/iview.min.js"></script>
+
+<div id="index-container">
+    <form ref="$form" action="/home/validateAuthor" method="post">
+        <div>
+            <row>
+                <col span="6">
+                <Badge text="Quartz.NET">
+                    <a href="" class="demo-badge"><div class="txt"><span class="big">奶业之星</span><span class="small">--后台任务调度</span></div></a>
+                </Badge>
+                </col>
+            </row>
+        </div>
+        <div>   <i-input name="token" v-model="token" placeholder="输入口令" /></div>
+        <div>  <i-button type="error" v-on:click="submit" long>提交</i-button></div>
+    </form>
+</div>
+
+<script>
+    var msg="@Html.Raw(ViewBag.msg)";
+    new Vue({
+        el: "#index-container",
+        data: {
+            token: ""
+        }, methods: {
+            submit: function () {
+                if (this.token == "" || this.token.trim() == "") {
+                    return this.$Message.error("请输入token");
+                }
+                this.$refs.$form.submit();
+            }
+        }, created: function () {
+            if (msg) {
+                this.$Message.error(msg);
+            }
+        }
+    });
+    window.onload = function () {
+        history.pushState(null, null, document.URL);
+        window.addEventListener('popstate', function () {
+            history.pushState(null, null, document.URL);
+        });
+    }
+</script>

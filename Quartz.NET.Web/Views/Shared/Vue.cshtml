@@ -1,0 +1,48 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    Layout = null;
+}
+<html lang="en">
+<head>
+    <title>定时任务UI</title>
+    @*<link href="~/iView/iview.css" rel="stylesheet" />*@
+    <link rel="stylesheet" href="//unpkg.com/iview/dist/styles/iview.css">
+    <link href="~/element-ui/index.css" rel="stylesheet" />
+    <link href="~/css/task_index.css" rel="stylesheet" />
+    <script src="~/vue/vue.js"></script>
+    <script src="~/element-ui/index.js"></script>
+    <script src="~/vue/axios.min.js"></script>
+    <script src="~/iView/iview.min.js"></script>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="header-container" class="task-header" v-cloak>
+        <div class="img">  <img src="~/images/favicon.png" /></div>
+        <div class="txt">
+            奶业之星后台任务调度
+        </div>
+        <div class="fun">
+            <ul>
+                <li v-for="(item,index) in links" v-bind:class="{actived:activedIndex==index}"> <a v-bind:href="item.url">{{item.text}}</a></li>
+            </ul>
+        </div>
+    </div>
+    @RenderBody()
+</body>
+</html>
+<script>
+    var $headerVue = new Vue({
+        el: "#header-container",
+        data: {
+            activedIndex: -1,
+            links: [{ text: '后台任务', url: '/' }, { text: '指南', url: '/Home/Guide' }, { text: '帮助', url: '/Home/Help' }, { text: '安全退出', url: '/Home/SignOut' }]
+        }, methods: {
+        }, created: function () {
+        }
+    });
+</script>

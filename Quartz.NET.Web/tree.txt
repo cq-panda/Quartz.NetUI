@@ -1,0 +1,45 @@
+©À©¤Constant
+©¦      QuartzFileInfo.cs
+©¦      
+©À©¤Controllers
+©¦      HealthController.cs
+©¦      HomeController.cs
+©¦      TaskBackGroundController.cs
+©¦      
+©À©¤Enum
+©¦      JobAction.cs
+©¦      
+©À©¤Extensions
+©¦      ConvertPath.cs
+©¦      QuartzNETExtension.cs
+©¦      
+©À©¤Filters
+©¦      TaskAuthorizeFilter.cs
+©¦      
+©À©¤Models
+©¦      TaskLog.cs
+©¦      TaskOptions.cs
+©¦      
+©À©¤Utility
+©¦      FileHelper.cs
+©¦      FileQuartz.cs
+©¦      HttpContext.cs
+©¦      HttpManager.cs
+©¦      HttpResultful.cs
+©¦      TaskCurrent.cs
+©¦      
+©À©¤Views  
+©¦©¤TaskBackGround
+©¦          Index.cshtml
+©¦          
+©¸©¤wwwroot
+    ©¦      task_index.css       
+    ©¦      
+    ©À©¤iView
+    ©¦      iview.min.js
+    ©¦      
+    ©À©¤js
+    ©¦      task-index.js               
+    ©¸©¤vue
+            vue.js
+            

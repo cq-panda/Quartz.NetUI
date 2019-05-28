@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2048
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quartz.NET.WindowsService", "Quartz.NET.WindowsService\Quartz.NET.WindowsService.csproj", "{3040DD22-663E-44CB-909B-3D0043867361}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quartz.NET.Web", "Quartz.NET.Web\Quartz.NET.Web.csproj", "{90D3F2A0-FBE5-4E74-9692-C14305E6934F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3040DD22-663E-44CB-909B-3D0043867361}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3040DD22-663E-44CB-909B-3D0043867361}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3040DD22-663E-44CB-909B-3D0043867361}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3040DD22-663E-44CB-909B-3D0043867361}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90D3F2A0-FBE5-4E74-9692-C14305E6934F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90D3F2A0-FBE5-4E74-9692-C14305E6934F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90D3F2A0-FBE5-4E74-9692-C14305E6934F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90D3F2A0-FBE5-4E74-9692-C14305E6934F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CD260BE0-3014-4FD6-9A5A-6E129B2ADAC4}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 3
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://114.112.54.131:8080/tfs/defaultcollection
+		SccProjectUniqueName0 = Quartz.NET.Web\\Quartz.NET.Web.csproj
+		SccProjectName0 = Quartz.NET.Web
+		SccLocalPath0 = Quartz.NET.Web
+		SccProjectUniqueName1 = Quartz.NET.WindowsService\\Quartz.NET.WindowsService.csproj
+		SccProjectName1 = Quartz.NET.WindowsService
+		SccLocalPath1 = Quartz.NET.WindowsService
+		SccLocalPath2 = .
+	EndGlobalSection
+EndGlobal

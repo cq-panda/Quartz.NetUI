@@ -1,0 +1,74 @@
+﻿@{
+    ViewData["Title"] = "定时任务";
+    Layout = "~/Views/Shared/Vue.cshtml";
+}
+
+<div id="task-container" v-cloak>
+    <Modal v-model="log.model"
+           v-bind:title="log.title"
+           width="460"
+           v-bind:mask-closable="log.closable"
+           v-bind:footer-hide="log.footerHide"
+           class-name="vertical-center-modal log-header">
+        <div class="log-model-content">
+            <el-scrollbar style="height:100%;">
+                <div class="log-spin" v-show="log.spin">
+                    <Spin></Spin>
+                </div>
+                <Timeline>
+                    <Timeline-Item v-for="(item,index) in log.data" v-bind:key="index" color="green">
+                        <p class="time"><span>{{index+1}}、</span>{{item.beginDate}} -- {{item.endDate}}</p>
+                        <p class="content">{{item.msg}}</p>
+                    </Timeline-Item>
+                </Timeline>
+                <div style="padding-bottom: 20px;">  <i-button type="dashed" @@click="next">下一页</i-button></div>
+            </el-scrollbar>
+        </div>
+    </Modal>
+
+    <Modal v-model="model"
+           v-bind:title="modelMessage"
+           width="660"
+           v-bind:mask-closable="closable"
+           v-bind:footer-hide="footerHide"
+           class-name="vertical-center-modal">
+        <div class="model-content">
+            <i-form ref="formValidate" :label-width="120" v-bind:model="taskValidate" v-bind:rules="ruleValidate">
+                <form-item v-for="item in taskForm" v-bind:label="item.text+'：'" v-bind:prop="item.name">
+                    <i-input v-if="item.type=='textarea'" v-model="taskValidate[item.name]" type="textarea"></i-input>
+                    <i-select v-else-if="item.type=='select'" v-model="taskValidate[item.name]" style="width:378px">
+                        <i-option v-for="item in selectCom.data" :value="item.value" :key="item.value">{{ item.label }}</i-option>
+                    </i-select>
+                    <i-input v-else v-model="taskValidate[item.name]" v-bind:class="{'read-only':item.readOnly}" v-bind:placeholder="item.placeholder"></i-input>
+                </form-item>
+                <div class="submit-btn">
+                    <a href="http://cron.qqe2.com/" target="_blank">cron在线生成</a>
+                    <i-button type="primary" @@click="handleSubmit('formValidate')">保存</i-button>
+                </div>
+            </i-form>
+        </div>
+    </Modal>
+    <div class="task-content">
+        <div class="task-btn">
+            <div class="desc-text">
+                <span class="ivu-icon ivu-icon-ios-cube"> </span>
+                <span> 后台任务列表</span>
+            </div>
+            <i-button type="info" icon="md-add" @@click="add">新建任务</i-button>
+            <i-button type="success" @@click="tiggerAction('pause')" icon="ios-power">暂停任务</i-button>
+            <i-button type="warning" @@click="tiggerAction('start')" icon="md-arrow-dropright">开启任务</i-button>
+            <i-button type="primary" @@click="tiggerAction('run')" icon="md-open">立即执行</i-button>
+            <i-button type="error" @@click="update" icon="md-construct">修改任务</i-button>
+            <i-button icon="md-close" @@click="tiggerAction('remove')">删除任务</i-button>
+            <i-button type="info" icon="md-refresh" @@click="refresh(false)">刷新数据</i-button>
+        </div>
+        <i-table border ref="selection" @@on-select="selectRow" :columns="columns" :data="rows">
+        </i-table>
+    </div>
+</div>
+<script src="~/js/task-index.js"></script>
+<script>
+    window.onload = function () {
+        $headerVue.activedIndex = 0;
+    }
+</script>

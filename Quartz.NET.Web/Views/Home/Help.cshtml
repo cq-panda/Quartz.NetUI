@@ -1,0 +1,40 @@
+﻿@{
+    ViewData["Title"] = "帮助";
+    Layout = "~/Views/Shared/Vue.cshtml";
+}
+<div id="help">
+    <Alert show-icon>
+        使用帮助
+        <template slot="desc">
+            整理中。。。。。。。
+        </template>
+    </Alert>
+</div>
+<style>
+    #help {
+        transform: translateY(-50%);
+        top: 200px;
+        position: absolute;
+        margin: 0 auto;
+        left: 0;
+        width: 30%;
+        line-height: 100px;
+        right: 0;
+    }
+</style>
+<script>
+    window.onload = function () {
+        $headerVue.activedIndex = 2;
+    }
+    var $headerVue = new Vue({
+        el: "#help",
+        data: {
+        }, methods: {
+        }, created: function () {
+        }, mounted: function () {
+        }
+    });
+
+
+
+</script>

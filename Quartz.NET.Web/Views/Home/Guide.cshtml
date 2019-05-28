@@ -1,0 +1,40 @@
+﻿@{
+    ViewData["Title"] = "指南";
+    Layout = "~/Views/Shared/Vue.cshtml";
+}
+<div id="guide">
+    <Alert show-icon>
+        使用指南
+        <template slot="desc">
+            整理中。。。。。。。
+        </template>
+    </Alert>
+</div>
+<style>
+    #guide {
+        transform: translateY(-50%);
+        top: 200px;
+        position: absolute;
+        margin: 0 auto;
+        left: 0;
+        width: 30%;
+        line-height: 100px;
+        right: 0;
+    }
+</style>
+<script>
+    window.onload = function () {
+        $headerVue.activedIndex = 1;
+    }
+    var $headerVue = new Vue({
+        el: "#guide",
+        data: {
+        }, methods: {
+        }, created: function () {
+        }, mounted: function () {
+        }
+    });
+
+
+
+</script>

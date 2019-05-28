@@ -1,0 +1,175 @@
+﻿
+* {
+box-sizing: border-box;
+}
+
+.task-header {
+background: #010101;
+height: 60px;
+border-bottom: 1px solid #d1d1d1;
+}
+
+.task-header .txt {
+margin-left: -25px;
+float: left;
+padding: 18px 23px;
+height: 100%;
+font-size: 17px;
+/* line-height: 100%; */
+font-weight: bolder;
+color: #c9c9c9;
+}
+
+.task-header .img {
+float: left;
+height: 60px;
+padding: 10px;
+margin-left: 2%;
+}
+
+.task-header .img img {
+height: 40px;
+}
+
+.task-header .fun {
+float: right;
+margin-right: 2%;
+}
+
+.task-header .fun ul {
+height: 100%;
+display: inline-block;
+}
+
+.task-header .fun li {
+height: 100%;
+list-style: none;
+float: left;
+padding: 20px 10px;
+position: relative;
+cursor: pointer;
+z-index: 3;
+/*transition: all .2s ease-in-out;*/
+}
+
+.task-header .fun a {
+color: #b0b0b0;
+font-size: 15px;
+text-decoration: none;
+padding: 20px 20px;
+}
+
+.actived {
+border-bottom: 2px solid;
+color: white;
+}
+
+.actived a {
+color: white !important;
+}
+
+.task-content {
+/*max-width: 1100px;*/
+position: absolute;
+left: 0;
+right: 0;
+padding: 0 40px;
+margin: 0 auto;
+margin-top: 20px;
+}
+
+.ivu-table-border td, .ivu-table-border th {
+font-size: 14px;
+}
+
+.task-btn {
+position: relative;
+padding-bottom: 11px;
+text-align: right;
+}
+
+.task-btn button {
+margin-left: 10px;
+}
+
+.desc-text {
+font-weight: bold;
+font-size: 15px;
+padding: 12px 0px 0px 0;
+position: absolute;
+/* height: 100%; */
+float: left;
+color: #F44336;
+border-bottom: 1px solid #FF5722;
+}
+.desc-text .ivu-icon {
+font-size: 17px;
+margin-top: -3px;
+color: #009688;
+}
+
+.model-content {
+    height: 540px;
+    padding: 20px 80px 10px 50px;
+}
+.ivu-modal-content .ivu-modal-header {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    background: #1c9f93;
+}
+    .ivu-modal-content .ivu-modal-header .ivu-modal-header-inner {
+        color: white;
+    }
+
+.ivu-modal-content .ivu-modal-close .ivu-icon-ios-close {
+    color: white;
+}
+.vertical-center-modal {
+    top: -40px;
+}
+.submit-btn {
+ text-align:right;
+}
+/*.view-log .ivu-table-cell > div > label {
+    font-size: 12px;
+    text-align: center;
+    color: white;
+    background: rgb(124, 214, 255);
+    padding: 6px 21px;
+    border-radius: 4px;
+    width: 90px;
+}*/
+    .view-log .ivu-table-cell > div:hover {
+        cursor: pointer;
+    }
+.log-model-content {
+    height: 480px;
+    /*padding: 10px 20px;*/
+}
+.log-header .ivu-modal-header {
+    background: #00BCD4;
+}
+.log-header .ivu-modal-body {
+    /*overflow-y: auto;*/
+     padding: 0px; 
+}
+
+.ivu-timeline .content {
+    color: #c1bcbc;
+}
+.read-only input[type='text'] {
+ border:0px !important;
+ box-shadow:none !important;
+}
+.el-scrollbar__wrap {
+    overflow-x: hidden;
+    padding: 30px 20px 20px 40px;
+}
+
+.el-scrollbar__bar.is-vertical {
+    /*background: #e9e7e7;*/
+    color: #ffffff;
+    z-index: 99999;
+    right: 0;
+    width: 8px;
+}

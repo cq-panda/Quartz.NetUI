@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link href="../iView/iview.css" rel="stylesheet" />
+    <script src="../vue/vue.js"></script>
+    <script src="../iView/iview.min.js"></script>
+    <!--<script src="https://unpkg.com/vuescroll"></script>
+        <script src="https://unpkg.com/vuescroll/dist/vuescroll-slide.js"></script>
+    <script src="https://unpkg.com/vuescroll/dist/vuescroll-native.js"></script>-->
+    <!--<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">-->
+    <!-- 引入组件库 -->
+    <!--<script src="https://unpkg.com/element-ui/lib/index.js"></script>-->
+    <link href="../element-ui/index.css" rel="stylesheet" />
+    <script src="../element-ui/index.js"></script>
+    <link rel="stylesheet" href="//unpkg.com/iview/dist/styles/iview.css">
+    <script src="../iView/iview.min.js"></script>
+    <title></title>
+    <style>
+        .d-scroll {
+            transform: translateY(-50%);
+            background: #ae9696;
+            top: 50%;
+            position: absolute;
+            margin: 0 auto;
+            left: 0;
+            height: 400px;
+            width: 300px;
+            right: 0;
+            text-align: center;
+        }
+
+        .el-scrollbar__wrap {
+            overflow-x: hidden;
+        }
+
+        .el-scrollbar__bar.is-vertical {
+            background: #e9e7e7;
+            color: #ffffff;
+            z-index: 99999;
+            right: 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="app" v-cloak>
+
+        <Modal v-model="log.model"
+               v-bind:title="log.title"
+               width="460"
+               v-bind:mask-closable="log.closable"
+               v-bind:footer-hide="log.footerHide"
+               class-name="vertical-center-modal log-header">
+            <div class="log-model-content" style="height:200px;">
+
+                <el-scrollbar style="height:100%;">
+                    <div>
+                        <p>这是一段让人浮想连篇的内容,看了晚上睡不着，白天睡不醒!!!</p>
+                        <p>这是一段让人浮想连篇的内容,看了晚上睡不着，白天睡不醒!!!</p>
+                        <p>这是一段让人浮想连篇的内容,看了晚上睡不着，白天睡不醒!!!</p>
+                        <p>这是一段让人浮想连篇的内容,看了晚上睡不着，白天睡不醒!!!</p>
+                        <p>这是一段让人浮想连篇的内容,看了晚上睡不着，白天睡不醒!!!</p>
+                        <p>这是一段让人浮想连篇的内容,看了晚上睡不着，白天睡不醒!!!</p>
+                        <p>这是一段让人浮想连篇的内容,看了晚上睡不着，白天睡不醒!!!</p>
+                        <p>这是一段让人浮想连篇的内容,看了晚上睡不着，白天睡不醒!!!</p>
+                        <p>这是一段让人浮想连篇的内容,看了晚上睡不着，白天睡不醒!!!</p>
+                        <p>这是一段让人浮想连篇的内容,看了晚上睡不着，白天睡不醒!!!</p>
+                        <p>这是一段让人浮想连篇的内容,看了晚上睡不着，白天睡不醒!!!</p>
+                        <p>这是一段让人浮想连篇的内容,看了晚上睡不着，白天睡不醒!!!</p>
+                        <p>这是一段让人浮想连篇的内容,看了晚上睡不着，白天睡不醒!!!</p>
+                        <p>这是一段让人浮想连篇的内容,看了晚上睡不着，白天睡不醒!!!</p>
+                        <p>这是一段让人浮想连篇的内容,看了晚上睡不着，白天睡不醒!!!</p>
+                        <p>这是一段让人浮想连篇的内容,看了晚上睡不着，白天睡不醒!!!</p>
+                    </div>
+                </el-scrollbar>
+            </div>
+        </Modal>
+
+        <div class="d-scroll">
+
+
+
+        
+        </div>
+    </div>
+</body>
+</html>
+<script>
+    new Vue({
+        el: "#app",
+        data() {
+            return {
+                log: {
+                    model: true,
+                    title: '日志记录',
+                    group: '',
+                    closable: true,
+                    footerHide: true,
+                    spin: false,
+                    page: 0,
+                    data: []
+                },
+                ops: {
+                    vuescroll: {},
+                    scrollPanel: {},
+                    rail: {},
+                    bar: {}
+                },
+                formValidate: {
+                    tname: ''
+                },
+                ruleValidate: {
+                    tname: [
+                        { required: true, message: 'The name cannot be empty', trigger: 'blur' }
+                    ]
+                }
+            }
+        },
+        methods: {
+
+        }
+    });
+</script>
