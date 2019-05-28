@@ -39,7 +39,7 @@ height: 70px;
 }
 
 .txt .big {
-letter-spacing: 5px;
+/*letter-spacing: 5px;*/
 font-size: 28px;
 font-weight: bold;
 }
@@ -47,6 +47,13 @@ font-weight: bold;
 .txt .small {
 font-size: 14px;
 margin-left: 13px;
+}
+.author {
+    position: relative;
+    font-size: 12px;
+    top: 4px;
+    color: #959595;
+    margin-left: 20px;
 }
 
 

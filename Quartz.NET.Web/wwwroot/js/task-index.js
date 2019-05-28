@@ -33,14 +33,14 @@ var $taskVue = new Vue({
         ruleValidate: {
             taskName: [{ required: true, message: '作业名称必填', trigger: 'blur' }],
             groupName: [{ required: true, message: '分组名称必填', trigger: 'blur' }],
-            interval: [{ required: true, message: '执行间隔(Cron)必填', trigger: 'blur' }],
+            interval: [{ required: true, message: '间隔(Cron)必填', trigger: 'blur' }],
             requestType: [{ required: true, message: '请选择请求方式', trigger: 'change' }],
             apiUrl: [{ required: true, message: 'ApiUrl必填', trigger: 'blur' }]
         },
         taskForm: [
             { name: 'taskName', text: '作业名称', value: '', placeholder: '作业名称与触发器名称默认相同', readOnly: false },
             { name: 'groupName', text: '分组', value: '', placeholder: '分组名称与分组名称默认相同', readOnly: false },
-            { name: 'interval', text: '执行间隔(Cron)', value: '', placeholder: '如10分钟执行一次：0/0 0/10 * * * ? ' },
+            { name: 'interval', text: '间隔(Cron)', value: '', placeholder: '如10分钟执行一次：0/0 0/10 * * * ? ' },
             { name: 'apiUrl', text: 'ApiUrl', value: '', placeholder: "远程调用接口URL" },
             { name: 'authKey', text: 'header(key)', value: '', placeholder: '请求header验证的Key' },
             { name: 'authValue', text: 'header(value)', value: '', placeholder: '请求header验证的Key' },
@@ -65,7 +65,7 @@ var $taskVue = new Vue({
             {
                 title: '最后执行时间',
                 key: 'lastRunTime',
-                width: 160
+                width: 170
             }, {
                 title: '间隔(Cron)',
                 key: 'interval',
