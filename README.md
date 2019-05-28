@@ -1,7 +1,7 @@
 # 运行环境
 .net core版本2.1及以上
 # 开箱即用
-直接运行Quartz.NetUI\Quartz.NET.Web目录下run.bat文件或部署项目(登陆token存放于appsettings.json节点token)
+直接运行Quartz.NetUI\Quartz.NET.Web目录下run.bat文件或部署项目(登陆token存放于appsettings.json节点token,管理员帐号位于节点superToken)
 # 在线演示地址
 http://task.volcore.xyz  登陆token为task123456
   # 作业列表
