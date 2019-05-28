@@ -3,7 +3,7 @@
 # 开箱即用
 直接运行Quartz.NetUI\Quartz.NET.Web目录下run.bat文件或部署项目(登陆token存放于appsettings.json节点token)
 # 在线演示地址
-http://task.volcore.xyz
+http://task.volcore.xyz  登陆token为task123456
   # 作业列表
  ![作业列表](https://github.com/cq-panda/Quartz.NetUI/blob/master/Quartz.NET.Web/wwwroot/images/example/tasklist.png)
    # 新建作业
