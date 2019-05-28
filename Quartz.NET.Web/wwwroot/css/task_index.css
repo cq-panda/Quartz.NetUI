@@ -167,8 +167,7 @@ color: #009688;
 }
 
 .el-scrollbar__bar.is-vertical {
-    /*background: #e9e7e7;*/
-    color: #ffffff; 
+    color: #ffffff;  
     z-index: 99999;
     right: 0;
     width: 8px;
