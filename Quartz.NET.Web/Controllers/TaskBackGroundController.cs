@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Quartz.NET.Web.Attr;
 using Quartz.NET.Web.Extensions;
 using Quartz.NET.Web.Models;
 using Quartz.NET.Web.Utility;
@@ -44,30 +45,32 @@ namespace Quartz.NET.Web.Controllers
         /// </summary>
         /// <param name="taskOptions"></param>
         /// <returns></returns>
+        [TaskAuthor]
         public async Task<IActionResult> Add(TaskOptions taskOptions)
         {
             return Json(await taskOptions.AddJob(_schedulerFactory));
         }
-
+        [TaskAuthor]
         public async Task<IActionResult> Remove(TaskOptions taskOptions)
         {
             return Json(await _schedulerFactory.Remove(taskOptions));
         }
+        [TaskAuthor]
         public async Task<IActionResult> Update(TaskOptions taskOptions)
         {
             return Json(await _schedulerFactory.Update(taskOptions));
         }
-
+        [TaskAuthor]
         public async Task<IActionResult> Pause(TaskOptions taskOptions)
         {
             return Json(await _schedulerFactory.Pause(taskOptions));
         }
-
+        [TaskAuthor]
         public async Task<IActionResult> Start(TaskOptions taskOptions)
         {
             return Json(await _schedulerFactory.Start(taskOptions));
         }
-
+        [TaskAuthor]
         public async Task<IActionResult> Run(TaskOptions taskOptions)
         {
             return Json(await _schedulerFactory.Run(taskOptions));

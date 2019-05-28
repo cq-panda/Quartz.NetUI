@@ -41,16 +41,18 @@ namespace Quartz.NET.Web.Controllers
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             _memoryCache.Remove("msg");
-            if (!string.IsNullOrEmpty(token) && _configuration["token"]?.ToString() == token)
+            string _token = _configuration["token"];
+            string superToken = _configuration["superToken"];
+            if (!string.IsNullOrEmpty(token) && (token == _token || token == superToken))
             {
+                _memoryCache.Set("isSuperToken", token == superToken);
                 ClaimsIdentity claimIdentity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
-                claimIdentity.AddClaim(new Claim(ClaimTypes.AuthorizationDecision, token));
-                await HttpContext.SignInAsync(
-               new ClaimsPrincipal(claimIdentity),
-               new AuthenticationProperties()
-               {
-                   ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(60)
-               });
+                claimIdentity.AddClaim(new Claim("token", token));
+                //claimIdentity.AddClaim(new Claim("superToken", _configuration["superToken"]?.ToString()));
+                await HttpContext.SignInAsync(new ClaimsPrincipal(claimIdentity), new AuthenticationProperties()
+                {
+                    ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(60)
+                });
             }
             else
             {
