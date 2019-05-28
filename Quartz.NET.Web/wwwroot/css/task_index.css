@@ -173,3 +173,11 @@ color: #009688;
     right: 0;
     width: 8px;
 }
+.author {
+    position: relative;
+    font-size: 12px;
+    top: 4px;
+    color: #959595;
+    margin-left: 20px;
+}
+
