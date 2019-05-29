@@ -56,7 +56,7 @@ namespace Quartz.NET.Web.Filters
                      .Append(request.Path)
                      .Append(request.QueryString)
                      .ToString();
-                FileQuartz.WriteAccess(_accessor.HttpContext.Connection.RemoteIpAddress.ToString() + "_" + url);
+                FileQuartz.WriteAccess(HttpManager.GetUserIP(_accessor) + "_" + url);
             }
             finally { }
         }

@@ -88,13 +88,19 @@ namespace Quartz.NET.Web.Extensions
                         var triggers = await _scheduler.GetTriggersOfJob(jobKey);
                         foreach (ITrigger trigger in triggers)
                         {
-                            //taskOptions.Interval = ((CronTriggerImpl)trigger).CronExpressionString;
-                            //taskOptions.Status = (int)await _scheduler.GetTriggerState(trigger.Key);
-                            //taskOptions.Describe = trigger.Description;
                             DateTimeOffset? dateTimeOffset = trigger.GetPreviousFireTimeUtc();
                             if (dateTimeOffset != null)
                             {
                                 taskOptions.LastRunTime = Convert.ToDateTime(dateTimeOffset.ToString());
+                            }
+                            else
+                            {
+                                var runlog = FileQuartz.GetJobRunLog(taskOptions.TaskName, taskOptions.GroupName, 1, 2);
+                                if (runlog.Count > 0)
+                                {
+                                    DateTime.TryParse(runlog[0].BeginDate, out DateTime lastRunTime);
+                                    taskOptions.LastRunTime = lastRunTime;
+                                }
                             }
                         }
                         list.Add(taskOptions);
@@ -265,6 +271,7 @@ namespace Quartz.NET.Web.Extensions
             }
             //生成配置文件
             FileQuartz.WriteJobConfig(_taskList);
+            FileQuartz.WriteJobAction(action, taskOptions.TaskName, taskOptions.GroupName, "操作对象："+JsonConvert.SerializeObject(taskOptions));
             return result;
         }
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
@@ -9,6 +10,32 @@ namespace Quartz.NET.Web.Utility
 {
     public class HttpManager
     {
+
+        public static string GetUserIP(IHttpContextAccessor httpContextAccessor)
+        {
+            var Request = httpContextAccessor.HttpContext.Request;
+            string realIP = null;
+            string forwarded = null;
+            string remoteIpAddress = httpContextAccessor.HttpContext.Connection.RemoteIpAddress.ToString();
+            if (Request.Headers.ContainsKey("X-Real-IP"))
+            {
+                realIP = Request.Headers["X-Real-IP"].ToString();
+                if (realIP != remoteIpAddress)
+                {
+                    remoteIpAddress = realIP;
+                }
+            }
+            if (Request.Headers.ContainsKey("X-Forwarded-For"))
+            {
+                forwarded = Request.Headers["X-Forwarded-For"].ToString();
+                if (forwarded == remoteIpAddress)
+                {
+                    remoteIpAddress = forwarded;
+                }
+            }
+            return remoteIpAddress;
+        }
+
         public static Task<string> HttpPostAsync(string url, string postData = null, string contentType = null, int timeOut = 30, Dictionary<string, string> headers = null)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
@@ -44,7 +71,7 @@ namespace Quartz.NET.Web.Utility
             }
 
         }
-        public static  Task<string> HttpGetAsync(string url, Dictionary<string, string> headers = null)
+        public static Task<string> HttpGetAsync(string url, Dictionary<string, string> headers = null)
         {
             try
             {

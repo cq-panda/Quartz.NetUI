@@ -109,6 +109,15 @@ namespace Quartz.NET.Web.Utility
             content = $"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}_{content}\r\n";
             FileHelper.WriteFile(FileQuartz.LogPath, "access.txt", content, true);
         }
+
+        public static string GetAccessLog(int pageSize=1)
+        {
+            string path = FileQuartz.LogPath + "access.txt";
+            path = path.ReplacePath();
+            if (!File.Exists(path))
+                return "没有找到目录";
+            return string.Join("<br/>", FileHelper.ReadPageLine(path, pageSize, 5000, true).ToList());
+        }
         public static string RootPath
         {
             get { return _rootPath; }

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
@@ -39,8 +40,8 @@ namespace Quartz.NET.Web
                 options.SlidingExpiration = true;
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
             });
-       
 
+      
             services.AddMvc()
             .AddJsonOptions(options =>
               options.SerializerSettings.ContractResolver = new DefaultContractResolver())
@@ -80,6 +81,10 @@ namespace Quartz.NET.Web
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+            });
             app.UseQuartz(env).UseStaticHttpContext();
             app.UseStaticFiles();
             app.UseCookiePolicy().UseAuthentication();
