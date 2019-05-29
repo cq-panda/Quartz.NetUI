@@ -87,7 +87,7 @@ namespace Quartz.NET.Web
             });
             app.UseQuartz(env).UseStaticHttpContext();
             app.UseStaticFiles();
-            app.UseCookiePolicy().UseAuthentication();
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Caching.Memory;
 using Newtonsoft.Json;
@@ -27,7 +28,8 @@ namespace Quartz.NET.Web.Filters
             WriteLog();
             if (context.Filters.Any(item => item is IAllowAnonymousFilter))
                 return;
-            if (((Microsoft.AspNetCore.Mvc.Controllers.ControllerActionDescriptor)context.ActionDescriptor).MethodInfo.CustomAttributes.Any(x => x.AttributeType == typeof(TaskAuthorAttribute))
+            if (((ControllerActionDescriptor)context.ActionDescriptor).MethodInfo
+                .CustomAttributes.Any(x => x.AttributeType == typeof(TaskAuthorAttribute))
                 && !_memoryCache.Get<bool>("isSuperToken"))
             {
                 context.Result = new ContentResult()

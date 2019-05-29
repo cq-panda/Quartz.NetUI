@@ -4,7 +4,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
+using Quartz.NET.Web.Extensions;
 using System;
+using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -22,6 +24,14 @@ namespace Quartz.NET.Web.Controllers
         [AllowAnonymous]
         public IActionResult Index()
         {
+            if (!string.IsNullOrEmpty(HttpContext.Request("ReturnUrl")))
+            {
+                return new ContentResult
+                {
+                    ContentType = "text/html",
+                    StatusCode = (int)HttpStatusCode.Unauthorized
+                };
+            }
             string msg = _memoryCache.Get("msg")?.ToString();
             if (msg != null)
             {
