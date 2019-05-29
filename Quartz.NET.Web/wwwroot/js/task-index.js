@@ -11,6 +11,7 @@ var $taskVue = new Vue({
             data: [{ value: 'post', label: 'post' }, { value: 'get', label: 'get' }]
         },
         log: {
+            index: 0,
             model: false,
             title: '日志记录',
             group: '',
@@ -166,18 +167,25 @@ var $taskVue = new Vue({
             this.select.currentRow = row;
             this.select.rows = selection;
         },
+        first: function () {
+            $taskVue.log.index = 0;
+            $taskVue.log.page = 0;
+            $taskVue.log.data = [];
+            this.getJobRunLog(null, true);
+        },
         next: function () {
             this.getJobRunLog(null, true);
         },
         getJobRunLog: function (params, next) {
             if (!next) {
-                if (!(params.row.taskName === $taskVue.log.title
-                    && params.row.groupName === $taskVue.log.groupName)) {
-                    $taskVue.log.page = 0;
-                    $taskVue.log.title = params.row.taskName;
-                    $taskVue.log.groupName = params.row.groupName;
-                    $taskVue.log.data = [];
-                }
+                //if (!(params.row.taskName === $taskVue.log.title
+                //    && params.row.groupName === $taskVue.log.groupName)) {
+                $taskVue.log.page = 0;
+                $taskVue.log.index = 0;
+                $taskVue.log.title = params.row.taskName;
+                $taskVue.log.groupName = params.row.groupName;
+                $taskVue.log.data = [];
+                //  }
             }
             $taskVue.log.model = true;
             //  $taskVue.log.spin = true;
@@ -185,7 +193,7 @@ var $taskVue = new Vue({
             $taskVue.ajax("/TaskBackGround/GetRunLog", {
                 taskName: $taskVue.log.title, groupName: $taskVue.log.groupName, page: $taskVue.log.page
             }, function (data) {
-                if (data.length == 0) {
+                if (data.length === 0) {
                     if ($taskVue.log.page >= 1) {
                         $taskVue.log.page--;
                     }
@@ -196,11 +204,12 @@ var $taskVue = new Vue({
                 }
                 //  $taskVue.log.spin = false;
                 if (next) {
-                    $taskVue.log.data.push(...data);
+                    $taskVue.log.data = data;
+                    // $taskVue.log.data.push(...data);
                 } else {
                     $taskVue.log.data = data;
                 }
-
+                $taskVue.log.index += $taskVue.log.index ? data.length: 1;
             });
         },
         getTaskValidate: function () {
@@ -257,7 +266,7 @@ var $taskVue = new Vue({
                     return this.$Message.error('数据填写不完整!');
                 }
                 this.ajax("/TaskBackGround/" + (this.isAdd ? 'add' : 'update'), this.taskValidate, function (data) {
-                    $taskVue.$Message.success(data.msg||'保存成功');
+                    $taskVue.$Message.success(data.msg || '保存成功');
                     if (data.status) {
                         $taskVue.model = false;
                         $taskVue.refresh(true);

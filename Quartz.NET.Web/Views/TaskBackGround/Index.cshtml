@@ -12,16 +12,16 @@
            class-name="vertical-center-modal log-header">
         <div class="log-model-content">
             <el-scrollbar style="height:100%;">
+                <div style="padding-bottom: 20px;"> <i-button type="dashed" @@click="first">首页</i-button> <i-button type="dashed" @@click="next">下一页</i-button></div>
                 <div class="log-spin" v-show="log.spin">
                     <Spin></Spin>
                 </div>
                 <Timeline>
                     <Timeline-Item v-for="(item,index) in log.data" v-bind:key="index" color="green">
-                        <p class="time"><span>{{index+1}}、</span>{{item.beginDate}} -- {{item.endDate}}</p>
+                        <p class="time"><span>{{log.index+index}}、</span>{{item.beginDate}} -- {{item.endDate}}</p>
                         <p class="content">{{item.msg}}</p>
                     </Timeline-Item>
                 </Timeline>
-                <div style="padding-bottom: 20px;">  <i-button type="dashed" @@click="next">下一页</i-button></div>
             </el-scrollbar>
         </div>
     </Modal>

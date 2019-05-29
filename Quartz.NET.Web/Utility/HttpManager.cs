@@ -28,7 +28,7 @@ namespace Quartz.NET.Web.Utility
             if (Request.Headers.ContainsKey("X-Forwarded-For"))
             {
                 forwarded = Request.Headers["X-Forwarded-For"].ToString();
-                if (forwarded == remoteIpAddress)
+                if (forwarded != remoteIpAddress)
                 {
                     remoteIpAddress = forwarded;
                 }

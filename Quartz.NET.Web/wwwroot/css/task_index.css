@@ -146,9 +146,12 @@ color: #009688;
     height: 480px;
     /*padding: 10px 20px;*/
 }
-.log-header .ivu-modal-header {
-    background: #00BCD4;
-}
+    .log-model-content .ivu-timeline {
+        width: 380px !important;
+    }
+    .log-header .ivu-modal-header {
+        background: #00BCD4;
+    }
 .log-header .ivu-modal-body {
     /*overflow-y: auto;*/
      padding: 0px; 
