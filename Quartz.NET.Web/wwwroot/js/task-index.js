@@ -288,7 +288,8 @@ var $taskVue = new Vue({
             axios({
                 method: 'post',
                 url: url,
-                params: params
+                params: params,
+                headers: { 'X-Requested-With':'XMLHttpRequest'}
             }).then(function (response) {
                 fun && fun(response.data);
                 }).catch(function (error) {

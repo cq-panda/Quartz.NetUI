@@ -88,7 +88,7 @@ namespace Quartz.NET.Web
             app.UseQuartz(env).UseStaticHttpContext();
             app.UseStaticFiles();
             app.UseAuthentication();
-
+            app.UseMvc();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

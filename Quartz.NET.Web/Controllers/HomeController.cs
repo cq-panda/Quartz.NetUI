@@ -29,7 +29,7 @@ namespace Quartz.NET.Web.Controllers
                 return new ContentResult
                 {
                     ContentType = "text/html",
-                    StatusCode = (int)HttpStatusCode.Unauthorized
+                    Content = string.Format("<script language='javaScript' type='text/javaScript'> window.parent.location.href = '/Home/Index';</script>")
                 };
             }
             string msg = _memoryCache.Get("msg")?.ToString();
