@@ -1,0 +1,9 @@
+﻿{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Warning"
+    }
+  },
+  "token": "task2019",
+  "AllowedHosts": "*"
+}

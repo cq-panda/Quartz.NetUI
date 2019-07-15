@@ -125,7 +125,8 @@ var $taskVue = new Vue({
             },
             {
                 title: '描述',
-                key: 'describe'
+                key: 'describe',
+                minWidth:200
             },
             {
                 title: 'ApiUrl',
