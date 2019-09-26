@@ -1,4 +1,5 @@
 /Quartz.NET.Task.Service
-/Quartz.NET.WindowsService
 /Quartz.NET
 /QuartzSettings
+/Quartz.NET.Web/bin
+/Quartz.NET.Web/obj

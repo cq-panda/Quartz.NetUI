@@ -1,0 +1,17 @@
+E:\xz20180307\Quartz.NET\Quartz.NET\Quartz.NET.WindowsService\obj\Debug\Quartz.NET.WindowsService.ProjectInstaller.resources
+E:\xz20180307\Quartz.NET\Quartz.NET\Quartz.NET.WindowsService\obj\Debug\Quartz.NET.WindowsService.csproj.GenerateResource.cache
+E:\xz20180307\Quartz.NET\Quartz.NET\Quartz.NET.WindowsService\obj\Debug\Quartz.NET.WindowsService.csproj.CoreCompileInputs.cache
+E:\xz20180307\Quartz.NET\Quartz.NET\Quartz.NET.WindowsService\bin\Debug\Quartz.NET.WindowsService.exe.config
+E:\xz20180307\Quartz.NET\Quartz.NET\Quartz.NET.WindowsService\bin\Debug\Quartz.NET.WindowsService.exe
+E:\xz20180307\Quartz.NET\Quartz.NET\Quartz.NET.WindowsService\bin\Debug\Quartz.NET.WindowsService.pdb
+E:\xz20180307\Quartz.NET\Quartz.NET\Quartz.NET.WindowsService\obj\Debug\Quartz.NET.WindowsService.exe
+E:\xz20180307\Quartz.NET\Quartz.NET\Quartz.NET.WindowsService\obj\Debug\Quartz.NET.WindowsService.pdb
+E:\xz20180307\Quartz.NET\Quartz.NET\Quartz.NET.WindowsService\obj\Debug\Quartz.NET.WindowsService.csprojAssemblyReference.cache
+E:\GitHub2019\Quartz.NetUI\Quartz.NET.WindowsService\bin\Debug\Quartz.NET.WindowsService.exe.config
+E:\GitHub2019\Quartz.NetUI\Quartz.NET.WindowsService\bin\Debug\Quartz.NET.WindowsService.exe
+E:\GitHub2019\Quartz.NetUI\Quartz.NET.WindowsService\bin\Debug\Quartz.NET.WindowsService.pdb
+E:\GitHub2019\Quartz.NetUI\Quartz.NET.WindowsService\obj\Debug\Quartz.NET.WindowsService.ProjectInstaller.resources
+E:\GitHub2019\Quartz.NetUI\Quartz.NET.WindowsService\obj\Debug\Quartz.NET.WindowsService.csproj.GenerateResource.cache
+E:\GitHub2019\Quartz.NetUI\Quartz.NET.WindowsService\obj\Debug\Quartz.NET.WindowsService.csproj.CoreCompileInputs.cache
+E:\GitHub2019\Quartz.NetUI\Quartz.NET.WindowsService\obj\Debug\Quartz.NET.WindowsService.exe
+E:\GitHub2019\Quartz.NetUI\Quartz.NET.WindowsService\obj\Debug\Quartz.NET.WindowsService.pdb

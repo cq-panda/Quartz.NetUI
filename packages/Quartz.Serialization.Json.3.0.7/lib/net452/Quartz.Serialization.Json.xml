@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Quartz.Serialization.Json</name>
+    </assembly>
+    <members>
+        <member name="T:Quartz.Simpl.JsonObjectSerializer">
+            <summary>
+            Default object serialization strategy that uses <see cref="T:Newtonsoft.Json.JsonSerializer" /> 
+            under the hood.
+            </summary>
+            <author>Marko Lahma</author>
+        </member>
+        <member name="M:Quartz.Simpl.JsonObjectSerializer.Serialize``1(``0)">
+            <summary>
+            Serializes given object as bytes 
+            that can be stored to permanent stores.
+            </summary>
+            <param name="obj">Object to serialize.</param>
+        </member>
+        <member name="M:Quartz.Simpl.JsonObjectSerializer.DeSerialize``1(System.Byte[])">
+            <summary>
+            Deserializes object from byte array presentation.
+            </summary>
+            <param name="obj">Data to deserialize object from.</param>
+        </member>
+        <member name="T:Quartz.Simpl.NameValueCollectionConverter">
+            <summary>
+            Custom converter for (de)serializing <see cref="T:System.Collections.Specialized.NameValueCollection" />.
+            </summary>
+        </member>
+    </members>
+</doc>
