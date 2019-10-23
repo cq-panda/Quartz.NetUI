@@ -50,6 +50,12 @@ var $taskVue = new Vue({
         ],
         columns: [
             {
+                hidden:true,
+                title: '测试',
+                key: 'id',
+                width: 120
+            },
+            {
                 type: 'selection',
                 width: 60,
                 align: 'center'
@@ -164,6 +170,15 @@ var $taskVue = new Vue({
         ],
         rows: []
     }, methods: {
+        getColumns: function () {
+            var columns = [];
+            this.columns.forEach(function (item) {
+                if (!item.hidden) {
+                    columns.push(item);
+                }
+            })
+            return columns;
+        },
         selectRow: function (selection, row) {
             this.select.currentRow = row;
             this.select.rows = selection;

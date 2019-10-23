@@ -62,7 +62,7 @@
             <i-button icon="md-close" @@click="tiggerAction('remove')">删除任务</i-button>
             <i-button type="info" icon="md-refresh" @@click="refresh(false)">刷新数据</i-button>
         </div>
-        <i-table border ref="selection" @@on-select="selectRow" :columns="columns" :data="rows">
+        <i-table border ref="selection" @@on-select="selectRow" :columns="getColumns()" :data="rows">
         </i-table>
     </div>
 </div>
