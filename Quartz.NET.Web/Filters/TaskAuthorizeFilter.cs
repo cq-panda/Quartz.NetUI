@@ -4,11 +4,13 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using Quartz.NET.Web.Attr;
 using Quartz.NET.Web.Utility;
 using System.Linq;
 using System.Net;
+using System.Security.Claims;
 using System.Text;
 
 namespace Quartz.NET.Web.Filters
@@ -16,11 +18,11 @@ namespace Quartz.NET.Web.Filters
     public class TaskAuthorizeFilter : IAuthorizationFilter
     {
         private readonly IHttpContextAccessor _accessor;
-        private readonly IMemoryCache _memoryCache;
-        public TaskAuthorizeFilter(IHttpContextAccessor accessor, IMemoryCache memoryCache)
+        private readonly IConfiguration configuration;
+        public TaskAuthorizeFilter(IHttpContextAccessor accessor, IConfiguration configuration)
         {
             this._accessor = accessor;
-            this._memoryCache = memoryCache;
+            this.configuration = configuration;
         }
 
         public void OnAuthorization(AuthorizationFilterContext context)
@@ -30,7 +32,7 @@ namespace Quartz.NET.Web.Filters
                 return;
             if (((ControllerActionDescriptor)context.ActionDescriptor).MethodInfo
                 .CustomAttributes.Any(x => x.AttributeType == typeof(TaskAuthorAttribute))
-                && !_memoryCache.Get<bool>("isSuperToken"))
+                && context.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier)!= configuration["superToken"])
             {
                 context.Result = new ContentResult()
                 {
