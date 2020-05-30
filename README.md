@@ -5,7 +5,8 @@
 登陆token存放于appsettings.json节点token
 管理员帐号位于节点superToken
 # 在线演示地址
-http://132.232.2.109:9950  登陆口令为task123456
+http://task.volcore.xyz/  登陆口令为task123456
+# 如有问题+群：45221949
   # 作业列表
  ![作业列表](https://github.com/cq-panda/Quartz.NetUI/blob/master/Quartz.NET.Web/wwwroot/images/example/tasklist.png)
    # 新建作业
