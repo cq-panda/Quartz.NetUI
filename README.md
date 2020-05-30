@@ -7,6 +7,7 @@
 # 在线演示地址
 http://task.volcore.xyz/  登陆口令为task123456
 # 如有问题+群：45221949
+# 码云地址：https://gitee.com/x_discoverer/Quartz.NetUI
   # 作业列表
  ![作业列表](https://github.com/cq-panda/Quartz.NetUI/blob/master/Quartz.NET.Web/wwwroot/images/example/tasklist.png)
    # 新建作业
