@@ -11,18 +11,18 @@ namespace Quartz.NET.Web.Extensions
     {
         string MapPath(string path);
         string MapPath(string path, bool rootPath);
-        IHostingEnvironment GetHostingEnvironment();
+        IWebHostEnvironment GetHostingEnvironment();
     }
 
     public class PathProvider : IPathProvider
     {
-        private IHostingEnvironment _hostingEnvironment;
+        private IWebHostEnvironment _hostingEnvironment;
 
-        public PathProvider(IHostingEnvironment environment)
+        public PathProvider(IWebHostEnvironment environment)
         {
             _hostingEnvironment = environment;
         }
-        public IHostingEnvironment GetHostingEnvironment()
+        public IWebHostEnvironment GetHostingEnvironment()
         {
             return _hostingEnvironment;
         }

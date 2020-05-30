@@ -20,7 +20,7 @@ namespace Quartz.NET.Web.Utility
         /// 创建作业所在根目录及日志文件夹 
         /// </summary>
         /// <returns></returns>
-        public static string CreateQuartzRootPath(IHostingEnvironment env)
+        public static string CreateQuartzRootPath(IWebHostEnvironment env)
         {
             if (!string.IsNullOrEmpty(_rootPath))
                 return _rootPath;

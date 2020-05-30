@@ -8,10 +8,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json.Serialization;
 using Quartz.Impl;
 using Quartz.NET.Web.Extensions;
 using Quartz.NET.Web.Filters;
+using Quartz.NET.Web.Utility;
 using System;   
 
 namespace Quartz.NET.Web
@@ -40,14 +42,12 @@ namespace Quartz.NET.Web
                 options.SlidingExpiration = true;
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
             });
-
-      
-            services.AddMvc()
-            .AddJsonOptions(options =>
-              options.SerializerSettings.ContractResolver = new DefaultContractResolver())
-            .AddJsonOptions(options => {
-                  options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
-                  options.SerializerSettings.ContractResolver=new  CamelCasePropertyNamesContractResolver();
+            services.AddHttpClient();
+            services.AddControllers()
+              .AddNewtonsoftJson(op =>
+              {
+                  op.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver();
+                  op.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
               });
             services.AddMvc(options =>
             {
@@ -64,13 +64,15 @@ namespace Quartz.NET.Web
             });
             services.AddSession().AddMemoryCache();
             services.AddSingleton<IPathProvider, PathProvider>();
+            services.AddTransient<HttpResultfulJob>();
             services.AddSingleton<ISchedulerFactory, StdSchedulerFactory>();
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddSingleton<Spi.IJobFactory, IOCJobFactory>();
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
          
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -88,12 +90,13 @@ namespace Quartz.NET.Web
             app.UseQuartz(env).UseStaticHttpContext();
             app.UseStaticFiles();
             app.UseAuthentication();
-            app.UseMvc();
-            app.UseMvc(routes =>
+            //app.UseMvc();
+            app.UseRouting();
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=TaskBackGround}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute(
+                name: "default",
+                pattern: "{controller=TaskBackGround}/{action=Index}/{id?}");
             });
         }
     }

@@ -3,6 +3,7 @@ using Quartz.NET.Web.Attr;
 using Quartz.NET.Web.Extensions;
 using Quartz.NET.Web.Models;
 using Quartz.NET.Web.Utility;
+using Quartz.Spi;
 using System.Threading.Tasks;
 
 namespace Quartz.NET.Web.Controllers
@@ -11,8 +12,10 @@ namespace Quartz.NET.Web.Controllers
     public class TaskBackGroundController : Controller
     {
         private readonly ISchedulerFactory _schedulerFactory;
-        public TaskBackGroundController(ISchedulerFactory schedulerFactory)
+        private readonly IJobFactory _jobFactory;
+        public TaskBackGroundController(ISchedulerFactory schedulerFactory, IJobFactory jobFactory)
         {
+            this._jobFactory = jobFactory;
             this._schedulerFactory = schedulerFactory;
         }
 
@@ -48,7 +51,7 @@ namespace Quartz.NET.Web.Controllers
         [TaskAuthor]
         public async Task<IActionResult> Add(TaskOptions taskOptions)
         {
-            return Json(await taskOptions.AddJob(_schedulerFactory));
+            return Json(await taskOptions.AddJob(_schedulerFactory,jobFactory:_jobFactory));
         }
         [TaskAuthor]
         public async Task<IActionResult> Remove(TaskOptions taskOptions)

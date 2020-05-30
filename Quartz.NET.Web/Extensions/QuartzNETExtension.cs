@@ -9,6 +9,7 @@ using Quartz.NET.Web.Constant;
 using Quartz.NET.Web.Enum;
 using Quartz.NET.Web.Models;
 using Quartz.NET.Web.Utility;
+using Quartz.Spi;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +27,7 @@ namespace Quartz.NET.Web.Extensions
         /// <param name="applicationBuilder"></param>
         /// <param name="env"></param>
         /// <returns></returns>
-        public static IApplicationBuilder UseQuartz(this IApplicationBuilder applicationBuilder, IHostingEnvironment env)
+        public static IApplicationBuilder UseQuartz(this IApplicationBuilder applicationBuilder, IWebHostEnvironment env)
         {
             IServiceProvider services = applicationBuilder.ApplicationServices;
 
@@ -49,7 +50,7 @@ namespace Quartz.NET.Web.Extensions
                 _taskList.ForEach(x =>
                 {
                     options = x;
-                    var result = x.AddJob(_schedulerFactory, true).Result;
+                    var result = x.AddJob(_schedulerFactory, true, jobFactory: services.GetService<IJobFactory>()).GetAwaiter().GetResult();
                 });
             }
             catch (Exception ex)
@@ -121,7 +122,7 @@ namespace Quartz.NET.Web.Extensions
         /// <param name="schedulerFactory"></param>
         /// <param name="init">是否初始化,否=需要重新生成配置文件，是=不重新生成配置文件</param>
         /// <returns></returns>
-        public static async Task<object> AddJob(this TaskOptions taskOptions, ISchedulerFactory schedulerFactory, bool init = false)
+        public static async Task<object> AddJob(this TaskOptions taskOptions, ISchedulerFactory schedulerFactory, bool init = false, IJobFactory jobFactory = null)
         {
             try
             {
@@ -138,15 +139,35 @@ namespace Quartz.NET.Web.Extensions
                     FileQuartz.WriteJobConfig(_taskList);
                 }
 
-                IJobDetail job = JobBuilder.Create<HttpResultful>()
+                IJobDetail job = JobBuilder.Create<HttpResultfulJob>()
                .WithIdentity(taskOptions.TaskName, taskOptions.GroupName)
               .Build();
                 ITrigger trigger = TriggerBuilder.Create()
                    .WithIdentity(taskOptions.TaskName, taskOptions.GroupName)
-                   .StartNow().WithDescription(taskOptions.Describe)
+                   .StartNow()
+                   .WithDescription(taskOptions.Describe)
                    .WithCronSchedule(taskOptions.Interval)
                    .Build();
+
                 IScheduler scheduler = await schedulerFactory.GetScheduler();
+
+                if (jobFactory == null)
+                {
+                    try
+                    {
+                        jobFactory = HttpContext.Current.RequestServices.GetService<IJobFactory>();
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"创建任务[{taskOptions.TaskName}]异常,{ex.Message}");
+                    }
+                }
+
+                if (jobFactory != null)
+                {
+                    scheduler.JobFactory = jobFactory;
+                }
+
                 await scheduler.ScheduleJob(job, trigger);
                 if (taskOptions.Status == (int)TriggerState.Normal)
                 {
@@ -271,7 +292,7 @@ namespace Quartz.NET.Web.Extensions
             }
             //生成配置文件
             FileQuartz.WriteJobConfig(_taskList);
-            FileQuartz.WriteJobAction(action, taskOptions.TaskName, taskOptions.GroupName, "操作对象："+JsonConvert.SerializeObject(taskOptions));
+            FileQuartz.WriteJobAction(action, taskOptions.TaskName, taskOptions.GroupName, "操作对象：" + JsonConvert.SerializeObject(taskOptions));
             return result;
         }
 
