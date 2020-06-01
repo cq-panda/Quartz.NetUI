@@ -13,6 +13,7 @@ namespace Quartz.NET.Web.Utility
 {
     public class HttpResultfulJob : IJob
     {
+        readonly IHttpClientFactory httpClientFactory;
         /// <summary>
         /// 2020.05.31增加构造方法
         /// </summary>
@@ -20,11 +21,10 @@ namespace Quartz.NET.Web.Utility
         /// <param name="httpClientFactory"></param>
         public HttpResultfulJob(IServiceProvider serviceProvider, IHttpClientFactory httpClientFactory)
         {
+            this.httpClientFactory = httpClientFactory;
             //serviceProvider.GetService()
-            //下面HttpManager发请求，将由httpClientFactory替换完成(待完)
-            Console.WriteLine($"{httpClientFactory.GetType().Name}");
         }
-        public Task Execute(IJobExecutionContext context)
+        public async Task Execute(IJobExecutionContext context)
         {
             DateTime dateTime = DateTime.Now;
             TaskOptions taskOptions = context.GetTaskOptions();
@@ -33,13 +33,13 @@ namespace Quartz.NET.Web.Utility
             if (taskOptions == null)
             {
                 FileHelper.WriteFile(FileQuartz.LogPath + trigger.Group, $"{trigger.Name}.txt", "未到找作业或可能被移除", true);
-                return Task.CompletedTask;
+                return;
             }
             Console.WriteLine($"作业[{taskOptions.TaskName}]开始:{ DateTime.Now.ToString("yyyy-MM-dd HH:mm:sss")}");
             if (string.IsNullOrEmpty(taskOptions.ApiUrl) || taskOptions.ApiUrl == "/")
             {
                 FileHelper.WriteFile(FileQuartz.LogPath + trigger.Group, $"{trigger.Name}.txt", $"{ DateTime.Now.ToString("yyyy-MM-dd HH:mm:sss")}未配置url,", true);
-                return Task.CompletedTask;
+                return;
             }
 
             try
@@ -50,15 +50,11 @@ namespace Quartz.NET.Web.Utility
                 {
                     header.Add(taskOptions.AuthKey.Trim(), taskOptions.AuthValue.Trim());
                 }
-                //HttpManager.HttpGetAsync/HttpPostAsync发请求，将由httpClientFactory替换完成(待完)
-                if (taskOptions.RequestType?.ToLower() == "get")
-                {
-                    httpMessage = HttpManager.HttpGetAsync(taskOptions.ApiUrl, header).Result;
-                }
-                else
-                {
-                    httpMessage = HttpManager.HttpPostAsync(taskOptions.ApiUrl, null, null, 60, header).Result;
-                }
+
+                httpMessage = await httpClientFactory.HttpSendAsync(
+                    taskOptions.RequestType?.ToLower() == "get" ? HttpMethod.Get : HttpMethod.Post,
+                    taskOptions.ApiUrl,
+                    header);
             }
             catch (Exception ex)
             {
@@ -74,7 +70,7 @@ namespace Quartz.NET.Web.Utility
             {
             }
             Console.WriteLine(trigger.FullName + " " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:sss") + " " + httpMessage);
-            return Task.CompletedTask;
+            return;
         }
     }
 }

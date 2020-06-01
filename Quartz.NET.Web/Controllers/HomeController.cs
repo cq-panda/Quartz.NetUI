@@ -66,7 +66,7 @@ namespace Quartz.NET.Web.Controllers
             {
                 _memoryCache.Set("msg", string.IsNullOrEmpty(token) ? "请填写token" : "token不正确");
             }
-            return new RedirectResult("/");
+            return new RedirectResult("/TaskBackGround/index");
         }
 
         /// <summary>
