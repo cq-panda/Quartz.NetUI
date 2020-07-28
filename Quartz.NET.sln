@@ -28,16 +28,4 @@ Global
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CD260BE0-3014-4FD6-9A5A-6E129B2ADAC4}
 	EndGlobalSection
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 3
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = http://114.112.54.131:8080/tfs/defaultcollection
-		SccProjectUniqueName0 = Quartz.NET.Web\\Quartz.NET.Web.csproj
-		SccProjectName0 = Quartz.NET.Web
-		SccLocalPath0 = Quartz.NET.Web
-		SccProjectUniqueName1 = Quartz.NET.WindowsService\\Quartz.NET.WindowsService.csproj
-		SccProjectName1 = Quartz.NET.WindowsService
-		SccLocalPath1 = Quartz.NET.WindowsService
-		SccLocalPath2 = .
-	EndGlobalSection
 EndGlobal
