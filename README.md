@@ -6,6 +6,8 @@
 管理员帐号位于节点superToken
 # 在线演示地址
 http://task.volcore.xyz/  登陆口令为task123456
+http://www.volcore.xyz/
+https://github.com/cq-panda/Vue.NetCore
 # 如有问题+群：45221949
 # 码云地址：https://gitee.com/x_discoverer/Quartz.NetUI
   # 作业列表
