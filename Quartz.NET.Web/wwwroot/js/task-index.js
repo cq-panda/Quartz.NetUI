@@ -46,14 +46,14 @@ var $taskVue = new Vue({
             { name: 'authKey', text: 'header(key)', value: '', placeholder: '请求header验证的Key' },
             { name: 'authValue', text: 'header(value)', value: '', placeholder: '请求header验证的Key' },
             {
-                name: 'requestType', text: '请求方式', value: '', onChange: (data,value) => {
+                name: 'requestType', text: '请求方式', value: '', onChange: (data, value) => {
                 }, placeholder: 'post/get', type: 'select'
             },
             { name: 'describe', text: '描述', value: '', type: 'textarea' }
         ],
         columns: [
             {
-                hidden:true,
+                hidden: true,
                 title: '测试',
                 key: 'id',
                 width: 120
@@ -135,7 +135,7 @@ var $taskVue = new Vue({
             {
                 title: '描述',
                 key: 'describe',
-                minWidth:200
+                minWidth: 200
             },
             {
                 title: 'ApiUrl',
@@ -188,7 +188,11 @@ var $taskVue = new Vue({
             return columns;
         },
         selectRow: function (selection, row) {
-            this.select.currentRow = row;
+            if (row) {
+                this.select.currentRow = row;
+            } else if (selection && selection.length) {
+                this.select.currentRow = selection[0];
+            }
             this.select.rows = selection;
         },
         first: function () {
@@ -233,7 +237,7 @@ var $taskVue = new Vue({
                 } else {
                     $taskVue.log.data = data;
                 }
-                $taskVue.log.index += $taskVue.log.index ? data.length: 1;
+                $taskVue.log.index += $taskVue.log.index ? data.length : 1;
             });
         },
         getTaskValidate: function () {
@@ -313,13 +317,13 @@ var $taskVue = new Vue({
                 method: 'post',
                 url: url,
                 params: params,
-                headers: { 'X-Requested-With':'XMLHttpRequest'}
+                headers: { 'X-Requested-With': 'XMLHttpRequest' }
             }).then(function (response) {
                 fun && fun(response.data);
-                }).catch(function (error) {
-                    if (error.response.status === 401) {
-                        return window.location.href = '/home/index';
-                    }
+            }).catch(function (error) {
+                if (error.response.status === 401) {
+                    return window.location.href = '/home/index';
+                }
                 $taskVue.$Message.success('出错啦!');
                 console.log(error);
             });

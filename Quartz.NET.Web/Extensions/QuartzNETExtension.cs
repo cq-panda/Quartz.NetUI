@@ -175,7 +175,8 @@ namespace Quartz.NET.Web.Extensions
                 }
                 else
                 {
-                    await schedulerFactory.Pause(taskOptions);
+                    await scheduler.PauseJob(job.Key);
+                    //  await schedulerFactory.Pause(taskOptions);
                     FileQuartz.WriteStartLog($"作业:{taskOptions.TaskName},分组:{taskOptions.GroupName},新建时未启动原因,状态为:{taskOptions.Status}");
                 }
                 if (!init)
@@ -360,7 +361,16 @@ namespace Quartz.NET.Web.Extensions
                         }
                         break;
                     case JobAction.立即执行:
-                        await scheduler.TriggerJob(jobKey);
+                        if (taskOptions != null && taskOptions.Status != (int)TriggerState.Normal)
+                        {
+                            result = taskOptions.ModifyTaskEntity(schedulerFactory, JobAction.开启);
+                             await scheduler.ResumeTrigger(trigger.Key);
+                        
+                        }
+                        else {
+                            await scheduler.TriggerJob(jobKey);
+                        }
+                    
                         break;
                 }
                 return result ?? new { status = true, msg = $"作业{action.ToString()}成功" };
